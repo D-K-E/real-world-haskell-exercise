@@ -45,8 +45,51 @@ data T_Polar2D = Polar2D Double Double
 
 -- The idea is both have components but they are different types
 
+-- Here are two different ways of writing the same thing
+
+-- Normal or the usual type constructor syntax
+
+data T_Customer = Customer Int String [String]
+                  deriving (Show)
+
+customerID :: Customer -> Int
+
+customerID (Customer id _ _ ) = id
+
+customerName :: Customer -> String
+
+customerName (Customer _ name _) = name
+
+customerAddress :: Customer -> [String]
+
+customerAddress (Customer _ _ address) = address
+
+-- Record Syntax equivalent
+
+data T_Customer = Customer {
+  customerId :: CustomerID
+  , customerName :: String
+  , customerAddress :: Address
+                           } deriving (Show)
+
+-- Their difference comes in instantiation
+
+customer1 = Customer 271828 "J.R. Hacker"
+            ["255 Syntax Ct",
+             "Milpitas, CA 95134",
+             "USA"]
+
+customer2 = Customer {
+              customerID = 271828
+            , customerAddress = ["1048576 Disk Drive",
+                                 "Milpitas, CA 95134",
+                                 "USA"]
+            , customerName = "Jane Q. Citizen"
+            }
+  -- In the second declaration order does not matter
 -- Creation of the new type BookInfo is done by treating book as a function
 
 myInfo = Book 9780135072455 "Algebra of Programming"
          ["Richard Bird", "Oege de Moor"]
 
+-- Parameterised types TODO
