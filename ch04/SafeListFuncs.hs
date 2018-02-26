@@ -4,7 +4,9 @@
 
 safeHead :: [a] -> a
 
-safeHead [] = []
+safeHead [a] = if null [a]
+               then []
+               else take 1 []
 
 safeHead [a] =
   take 1 [a]
@@ -13,12 +15,23 @@ safeHead [a] =
 
 safeLast :: [a] -> a
 
-safeLast [] = []
-
-safeLast [a] =
-  let reversedList = reverse [a]
-  take 1 reversedList
+safeLast [a] = if null [a]
+               then []
+               else take 1 (reverse [a])
 
 -- safe init
 
+safeInit :: [a] -> [a]
+
+safeInit [a] = if null [a]
+               then []
+               else init [a]
+
+-- safe last
+
+safeTail :: [a] -> [a]
+
+safeTail [a] = if null [a]
+               then []
+               else tail [a]
 
